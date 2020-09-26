@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include <keymap_polish.h>
 
 
 #define _QWERTY 0
@@ -9,6 +10,7 @@
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  DVORAK,
   LOWER,
   RAISE,
   ADJUST,
@@ -26,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV,           KC_DEL,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    LOWER, KC_LGUI,   KC_ENT,                    KC_SPC,  KC_RALT,   RAISE
+                                    LOWER,   KC_LGUI, KC_ENT,                    KC_SPC,  KC_RALT,   RAISE
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
