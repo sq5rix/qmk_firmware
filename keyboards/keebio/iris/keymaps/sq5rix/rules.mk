@@ -1,0 +1,1 @@
+TAB_DANCE_ENABLE = yes
