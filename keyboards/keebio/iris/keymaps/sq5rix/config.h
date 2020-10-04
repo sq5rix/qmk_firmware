@@ -21,4 +21,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_DEBUG 
 #define NO_PRINT 
 #define EE_HANDS
-#define TAPPING_TERM 212
+#define TAPPING_TERM 220
