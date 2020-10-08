@@ -87,7 +87,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
-            tap_code16(LCA(KC_LEFT));
+            tap_code16(C(G(KC_LEFT)));
         } else {
             tap_code16(C(G(KC_RGHT)));
         }
