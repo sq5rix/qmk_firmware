@@ -13,8 +13,8 @@ enum custom_keycodes {
 #define LOWER  LT(_LOWER, KC_ENT)
 #define RAISE  LT(_RAISE, KC_SPC)
 #define SH_ESC MT(MOD_LSFT, KC_ESC)
-#define SH_CWD MT(MOD_LALT, KC_TAB)
-#define SH_TAB MT(MOD_RALT, KC_COMM)
+#define SH_CWD MT(MOD_LALT, KC_COMM)
+#define SH_TAB MT(MOD_RALT, KC_TAB)
 #define SH_UND MT(MOD_LCTL, KC_MINUS)
 #define SH_DEL LALT(LCTL(KC_DEL))
 
@@ -87,9 +87,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
-            tap_code16(LCA(KC_UP));
+            tap_code16(LCA(KC_LEFT));
         } else {
-            tap_code16(C(G(KC_DOWN)));
+            tap_code16(C(G(KC_RGHT)));
         }
     }
     else if (index == 1) {
