@@ -7,7 +7,8 @@
 enum custom_keycodes {
    QWERTY = SAFE_RANGE,
    BEAKL15,
-   LT_DAT
+   LT_DAT,
+   LT_COM
 };
 
 #define LOWER  LT(_LOWER, KC_ENT)
@@ -17,6 +18,8 @@ enum custom_keycodes {
 #define SH_TAB MT(MOD_RALT, KC_TAB)
 #define SH_UND MT(MOD_LCTL, KC_MINUS)
 #define SH_DEL LALT(LCTL(KC_DEL))
+
+bool sh_key(keyrecord_t *record, uint16_t sk, uint8_t nk);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -32,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_4,    KC_0,    KC_1,    KC_2,    KC_3,                               KC_7,    KC_6,    KC_5,    KC_9,    KC_8,    KC_DEL,    
      KC_TRNS,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_Z,    KC_QUOT,
      KC_TRNS,  KC_Y,    KC_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    KC_T,    KC_N,    KC_B,    KC_BSPC,   
-     KC_TRNS, KC_J,    KC_SLASH, KC_COMM, KC_K,    KC_QUOT, _______,          _______, KC_W,    KC_M,    KC_L,    KC_P,    KC_V,    KC_RSFT,
+     KC_TRNS, KC_J,     KC_SLASH,LT_COM,  KC_K,    KC_QUOT, _______,          _______, KC_W,    KC_M,    KC_L,    KC_P,    KC_V,    KC_RSFT,
                                     _______, _______, _______,                   _______, _______, _______
   ),
 
@@ -40,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, KC_F4,   KC_F10,  KC_F1,   KC_F2,   KC_F3,                              KC_F12,  KC_F7,   KC_F6,   KC_F5,   KC_F9,   SH_DEL, 
      KC_TRNS, KC_LT,   KC_DLR,  KC_GT,   KC_TRNS, KC_TRNS,                            KC_TRNS, KC_LBRC, KC_UNDS, KC_RBRC, KC_SCLN, KC_TRNS, 
      KC_TRNS, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                            KC_PERC, KC_LCBR, KC_EQL,  KC_RCBR, KC_PIPE, KC_TRNS, 
-     KC_TRNS, KC_TRNS, KC_COLN, KC_ASTR, KC_PLUS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, KC_TRNS, 
+     KC_TRNS, KC_TRNS, KC_SLSH, KC_ASTR, KC_PLUS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, KC_TRNS, 
                                     KC_TRNS, KC_TRNS, KC_TRNS,                 KC_TRNS, KC_TRNS, KC_TRNS
 
   ),
@@ -67,21 +70,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case LT_DAT:
-      if (record->event.pressed) { 
-        if (get_mods() & MOD_BIT(KC_LSHIFT)){
-           register_code16(KC_AT);
-        } else {
-           register_code(KC_DOT);
-        }
-      }
-      else {
-           unregister_code16(KC_AT);
-           unregister_code(KC_DOT);
-      }
-      return false;
+      return sh_key(record, KC_AT, KC_DOT);
+    case LT_COM:
+      return sh_key(record, KC_EXLM, KC_COMM);
     default:
       return true;
   }
+}
+
+bool sh_key(keyrecord_t *record, uint16_t sk, uint8_t nk){
+      if (record->event.pressed) { 
+        if (get_mods() & MOD_BIT(KC_LSHIFT)){
+           register_code16(sk);
+        } else {
+           register_code(nk);
+        }
+      }
+      else {
+           unregister_code16(sk);
+           unregister_code(nk);
+      }
+      return false;
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
