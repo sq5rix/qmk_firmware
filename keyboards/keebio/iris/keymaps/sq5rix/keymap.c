@@ -106,7 +106,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             send_string(":bn"SS_TAP(X_ENTER));
         } else {
-            send_string(SS_LCTL("B")"n"SS_TAP(X_ENTER));
+            send_string(SS_LCTL("B")"n");
         }
     }
 }
