@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
      SH_LTAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LGUI,
      SH_UND,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, RGB_TOG,              RGB_MOD, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, RGB_TOG,              BL_TOGG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                                     SH_UND, LOWER, RAISE,                        SH_ESC,  SH_RTAB,  SH_CWD 
   ),
 
@@ -50,10 +50,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
-     RESET,   KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,                             _______, _______, _______, _______, _______, _______, 
-     DF(BEAKL15),   KC_PLUS, KC_6,    KC_5,    KC_4,    KC_PERC,                             KC_CIRC, KC_AMPR, KC_UP,   KC_LPRN, _______, RGB_SPI, 
-     DF(QWERTY),   KC_3,    KC_2,    KC_1,    KC_0,    KC_EQL,                              KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_VAI, 
-     KC_MUTE, KC_MSTP, KC_9,    KC_8,    KC_7,    KC_MINS,  _______,          _______, KC_PLUS, KC_LT,   KC_COLN, KC_GT,   _______, RGB_HUI, 
+     RESET,        KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,                        _______, _______, _______, _______, _______, _______, 
+     DF(BEAKL15),  KC_PLUS, KC_6,    KC_5,    KC_4,    KC_PERC,                        KC_CIRC, KC_AMPR, KC_UP,   KC_LPRN, _______, RGB_SPI, 
+     DF(QWERTY),   KC_3,    KC_2,    KC_1,    KC_0,    KC_EQL,                         KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_VAI, 
+     KC_MUTE,      KC_MSTP, KC_9,    KC_8,    KC_7,    KC_MINS,  _______,     _______, KC_PLUS, KC_LT,   KC_COLN, KC_GT,   _______, RGB_MOD, 
                                     _______, _______, _______,                    _______, _______, _______
   )
 };
