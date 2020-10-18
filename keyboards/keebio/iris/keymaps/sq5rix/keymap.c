@@ -8,7 +8,8 @@ enum custom_keycodes {
    QWERTY = SAFE_RANGE,
    BEAKL15,
    LT_DAT,
-   LT_COM
+   LT_COM,
+   LT_QUOT
 };
 
 #define LOWER  LT(_LOWER, KC_ENT)
@@ -20,7 +21,8 @@ enum custom_keycodes {
 #define SH_UND MT(MOD_LCTL, KC_MINUS)
 #define SH_DEL LALT(LCTL(KC_DEL))
 
-bool sh_key(keyrecord_t *record, uint16_t sk, uint8_t nk);
+bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
+bool sh_key8(keyrecord_t *record, uint8_t sk, uint8_t nk);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -36,24 +38,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
      _______,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_N,    KC_F,    KC_V,    _______, 
      _______,  KC_Y,    KC_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    KC_R,    KC_T,    KC_W,    _______, 
-     _______,  KC_J,    KC_SLSH, LT_COM,  KC_K,    KC_QUOT, _______,          _______, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    _______, 
+     _______,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, _______,          _______, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    _______, 
                                     _______, _______, _______,                   _______, _______, _______
   ),
 
   [_LOWER] = LAYOUT(
      _______, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______, 
-     _______, _______, KC_LT,   KC_DLR,  KC_GT,   _______,                             _______, KC_LBRC, KC_UNDS, KC_RBRC, KC_SCLN, _______,
-     _______, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                             KC_PERC, KC_LCBR, KC_EQL,  KC_RCBR, KC_SCLN, _______,
-     _______, KC_GRV,  KC_COLN, KC_ASTR, KC_PLUS, _______,  _______,          _______, _______, KC_AMPR, KC_CIRC, KC_TILD, KC_PIPE, _______,
+     _______, _______, KC_LT,   KC_DLR,  KC_GT,   KC_EXLM,                             _______, KC_LBRC, KC_UNDS, KC_RBRC, KC_EXLM, _______,
+     _______, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                             KC_PERC, KC_LCBR, KC_EQL,  KC_RCBR, KC_PIPE, _______,
+     _______, KC_GRV,  KC_COLN, KC_ASTR, KC_PLUS, KC_SCLN,  _______,          _______, _______, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, _______,
                                     _______, _______, _______,                    _______, _______, _______
 
   ),
 
   [_RAISE] = LAYOUT(
-     RESET,        KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,                        _______, _______, _______, _______, _______, _______, 
-     DF(BEAKL15),  KC_PLUS, KC_6,    KC_5,    KC_4,    KC_PERC,                        KC_CIRC, KC_AMPR, KC_UP,   KC_LPRN, _______, RGB_SPI, 
-     DF(QWERTY),   KC_3,    KC_2,    KC_1,    KC_0,    KC_EQL,                         KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_VAI, 
-     KC_MUTE,      KC_MSTP, KC_9,    KC_8,    KC_7,    KC_MINS,  _______,     _______, KC_PLUS, KC_LT,   KC_COLN, KC_GT,   _______, RGB_MOD, 
+     RESET,    KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,                        _______, _______, _______, _______, _______, _______, 
+     BEAKL15,  KC_PLUS, KC_6,    KC_5,    KC_4,    KC_PERC,                        KC_CIRC, KC_AMPR, KC_UP,   KC_LPRN, _______, RGB_SPI, 
+     QWERTY,   KC_3,    KC_2,    KC_1,    KC_0,    KC_EQL,                         KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_VAI, 
+     KC_MUTE,  KC_MSTP, KC_9,    KC_8,    KC_7,    KC_MINS,  _______,     _______, KC_PLUS, KC_LT,   KC_COLN, KC_GT,   _______, RGB_MOD, 
                                     _______, _______, _______,                    _______, _______, _______
   )
 };
@@ -71,24 +73,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case LT_DAT:
-      return sh_key(record, KC_AT, KC_DOT);
+      return sh_key8(record, KC_2, KC_DOT);
     case LT_COM:
-      return sh_key(record, KC_EXLM, KC_COMM);
+      return sh_key8(record, KC_1, KC_COMM);
+    case LT_QUOT:
+      return sh_key(record, KC_GRV, KC_QUOT);
     default:
       return true;
   }
 }
 
-bool sh_key(keyrecord_t *record, uint16_t sk, uint8_t nk){
+bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk){
       if (record->event.pressed) { 
-        if (get_mods() & MOD_BIT(KC_LSHIFT)){
-           register_code16(sk);
+        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+           unregister_code(KC_LSFT);
+           unregister_code(KC_RSFT);
+           register_code(sk);
         } else {
            register_code(nk);
         }
       }
       else {
            unregister_code16(sk);
+           unregister_code(nk);
+      }
+      return false;
+}
+
+bool sh_key8(keyrecord_t *record, uint8_t sk, uint8_t nk){
+      if (record->event.pressed) { 
+        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+           register_code(sk);
+        } else {
+           register_code(nk);
+        }
+      }
+      else {
+           unregister_code(sk);
            unregister_code(nk);
       }
       return false;
