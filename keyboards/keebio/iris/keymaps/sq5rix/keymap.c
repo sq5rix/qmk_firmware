@@ -36,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_BEAKL15] = LAYOUT(
      _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-     _______,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_N,    KC_F,    KC_V,    _______, 
-     _______,  KC_Y,    KC_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    KC_R,    KC_T,    KC_W,    _______, 
+     _______,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_V,    _______, 
+     _______,  KC_Y,    KC_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    KC_N,    KC_T,    KC_W,    _______, 
      _______,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, _______,          _______, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    _______, 
                                     _______, _______, _______,                   _______, _______, _______
   ),
