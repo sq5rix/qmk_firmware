@@ -15,10 +15,12 @@ enum custom_keycodes {
 #define LOWER  LT(_LOWER, KC_ENT)
 #define RAISE  LT(_RAISE, KC_SPC)
 #define SH_ESC MT(MOD_LSFT, KC_ESC)
-#define SH_CWD MT(MOD_LALT, KC_COMM)
+#define SH_CWD MT(MOD_LALT, KC_SCLN)
 #define SH_LTAB MT(MOD_LALT, KC_TAB)
 #define SH_RTAB MT(MOD_RALT, KC_TAB)
+#define SH_RABS MT(MOD_RALT, KC_BSPC)
 #define SH_UND MT(MOD_LCTL, KC_MINUS)
+#define SH_LEAD MT(MOD_LCTL, KC_WH_D)
 #define SH_DEL LALT(LCTL(KC_DEL))
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
@@ -29,9 +31,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
      SH_LTAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LGUI,
-     SH_UND,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
+     SH_UND,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, SH_RABS,
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, RGB_TOG,              BL_TOGG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                    SH_UND, LOWER, RAISE,                        SH_ESC,  SH_RTAB,  SH_CWD 
+                                    SH_LEAD, LOWER, RAISE,                        SH_ESC,  SH_RTAB,  SH_CWD 
   ),
 
  [_BEAKL15] = LAYOUT(
@@ -52,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
-     RESET,    KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,                     KC_PSCREEN, _______, _______, _______, _______, _______, 
+     RESET,    KC_VOLD, KC_VOLU, KC_MUTE, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP,    KC_PSCREEN, _______, _______, _______, RGB_VAI, _______, 
      BEAKL15,  KC_PLUS, KC_6,    KC_5,    KC_4,    KC_PERC,                        KC_CIRC, KC_PGUP, KC_UP,   KC_PGDN, _______, RGB_SPI, 
-     QWERTY,   KC_3,    KC_2,    KC_1,    KC_0,    KC_EQL,                         KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_VAI, 
+     QWERTY,   KC_3,    KC_2,    KC_1,    KC_0,    KC_EQL,                         KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
      KC_MUTE,  KC_MSTP, KC_9,    KC_8,    KC_7,    KC_MINS,  _______,     _______, KC_PLUS, KC_HOME, KC_COLN, KC_END,  _______, RGB_MOD, 
                                     _______, _______, _______,                    _______, _______, _______
   )

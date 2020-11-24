@@ -23,4 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 #define TAPPING_TERM 210
 #define ENCODER_RESOLUTION 2
-#define TAP_CODE_DELAY 15
+#define TAP_CODE_DELAY 20
