@@ -20,7 +20,7 @@ enum custom_keycodes {
 #define SH_RTAB MT(MOD_RALT, KC_TAB)
 #define SH_RABS MT(MOD_RALT, KC_BSPC)
 #define SH_UND MT(MOD_LCTL, KC_MINUS)
-#define SH_LEAD MT(MOD_LCTL, KC_WH_D)
+#define SH_LEAD MT(MOD_LCTL, KC_PLUS)
 #define SH_DEL LALT(LCTL(KC_DEL))
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
