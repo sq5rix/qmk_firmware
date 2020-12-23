@@ -16,11 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-// #define USE_I2C
+//#define USE_I2C
 #define NO_DEBUG
 #define NO_PRINT
 #define EE_HANDS
 #define TAPPING_TERM 190
 #define ENCODER_RESOLUTION 2
 #define PERMISSIVE_HOLD
+#define RGBLIGHT_LAYERS

@@ -1,1 +1,2 @@
-LTO_ENABLE = no
+LRGBLIGHT_ENABLE = yes
+TO_ENABLE = yes
