@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_DEBUG
 #define NO_PRINT
 #define EE_HANDS
-#define TAPPING_TERM 190
-#define ENCODER_RESOLUTION 2
+#define TAPPING_TERM 160
+#define ENCODER_RESOLUTION 1
 #define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
 #define RGBLIGHT_LAYERS
