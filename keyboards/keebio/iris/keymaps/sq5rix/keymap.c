@@ -19,7 +19,8 @@ enum custom_keycodes {
 #define SH_LTAB MT(MOD_LALT, KC_TAB)
 #define SH_RTAB MT(MOD_RALT, KC_TAB)
 #define SH_RABS MT(MOD_RALT, KC_BSPC)
-#define SH_UND MT(MOD_LCTL, KC_MINUS)
+#define SH_UND MT(MOD_LCTL, KC_UNDS)
+#define SH_BSPC MT(MOD_LCTL, KC_BSPC)
 #define SH_LEAD MT(MOD_LCTL, KC_PLUS)
 #define SH_DEL LALT(LCTL(KC_DEL))
 
@@ -38,24 +39,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BASE] = LAYOUT(
   TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
      SH_LTAB,  KC_EQL,  KC_M,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_F12,  KC_LGUI,
-     SH_UND,   KC_Y,    AL_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    AL_T,    KC_N,    KC_W,    SH_RABS,
+     SH_UND,   KC_Y,    AL_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    AL_T,    KC_N,    KC_W,    KC_BSPC,
      KC_LSFT,  KC_Q,    KC_Z,    KC_J,    KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_B,    KC_H,    KC_L,    KC_P,    KC_V,    KC_RSFT,
-                                    SH_LEAD, LOWER, RAISE,                        SH_ESC,  SH_RTAB,  SH_CWD
+                                    KC_BSPC, LOWER, RAISE,                        SH_ESC,  SH_RTAB,  SH_CWD
   ),
 
  [_BEAKL15] = LAYOUT(
-  TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-     _______,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_V,    _______,
-     _______,  KC_Y,    AL_I,    LG_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    AL_T,    RG_N,    KC_W,    _______,
-     _______,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, _______,          _______, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    _______,
-                                    _______, _______, _______,                   _______, _______, _______
+  TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+     SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_V,    KC_LGUI,
+     SH_UND,   KC_Y,    AL_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    AL_T,    KC_N,    KC_W,    KC_BSPC,
+     KC_LSFT,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    KC_RSFT,
+                                        SH_BSPC, LOWER, RAISE,                      SH_ESC,  SH_RTAB,  SH_CWD
   ),
 
   [_LOWER] = LAYOUT(
      _______, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
      _______, _______, KC_LT,   KC_DLR,  KC_GT,   KC_EXLM,                             _______, KC_LBRC, KC_UNDS, KC_RBRC, KC_EXLM, _______,
      _______, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                             KC_PERC, KC_LCBR, KC_EQL,  KC_RCBR, KC_PIPE, _______,
-     _______, KC_SCLN, KC_SLSH, LT_COM,  KC_ASTR, KC_PLUS,  _______,          _______, _______, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, _______,
+     _______, KC_SCLN, KC_SLSH, KC_ASTR, KC_PLUS,  _______, _______,          _______, _______, KC_AMPR, KC_CIRC, KC_TILD, KC_SCLN, _______,
                                     _______, _______, _______,                    _______, _______, _______
 
   ),
