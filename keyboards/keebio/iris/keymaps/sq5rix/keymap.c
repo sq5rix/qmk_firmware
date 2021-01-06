@@ -1,13 +1,10 @@
 #include QMK_KEYBOARD_H
-#define _BASE 0
 #define _BEAKL15 1
 #define _LOWER 2
 #define _RAISE 3
 
 enum custom_keycodes {
-   BASE = SAFE_RANGE,
-   BEAKL15,
-   LT_DAT,
+   LT_DAT = SAFE_RANGE,
    LT_COM,
    LT_QUOT
 };
@@ -36,14 +33,6 @@ bool sh_key8(keyrecord_t *record, uint8_t sk, uint8_t nk);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
- [_BASE] = LAYOUT(
-  TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-     SH_LTAB,  KC_EQL,  KC_M,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_F12,  KC_LGUI,
-     SH_UND,   KC_Y,    AL_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    KC_S,    AL_T,    KC_N,    KC_W,    KC_BSPC,
-     KC_LSFT,  KC_Q,    KC_Z,    KC_J,    KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_B,    KC_H,    KC_L,    KC_P,    KC_V,    KC_RSFT,
-                                    KC_BSPC, LOWER, RAISE,                        SH_ESC,  SH_RTAB,  SH_CWD
-  ),
-
  [_BEAKL15] = LAYOUT(
   TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
      SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_V,    KC_LGUI,
@@ -62,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
-     _______,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP,    KC_PSCREEN, _______, _______, BEAKL15,    BASE, RESET,
+     _______,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP,    KC_PSCREEN, _______, _______, _______, _______, RESET,
      _______,  KC_SLSH, KC_6,    KC_5,    KC_4,    KC_EQL,                            KC_CIRC, KC_PGUP, KC_UP,   KC_PGDN, _______, RGB_VAI,
      _______,  KC_3,    KC_2,    KC_1,    KC_0,    KC_DOT,                            KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
      _______,  KC_ASTR, KC_9,    KC_8,    KC_7,    KC_PLUS,  _______,        _______, KC_PLUS, KC_HOME, KC_COLN, KC_END,  _______, RGB_MOD,
@@ -72,16 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case BASE:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_BASE);
-      }
-      return false;
-    case BEAKL15:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_BEAKL15);
-      }
-      return false;
     case LT_DAT:
       return sh_key8(record, KC_2, KC_DOT);
     case LT_COM:
