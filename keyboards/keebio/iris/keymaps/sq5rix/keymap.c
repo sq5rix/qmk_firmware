@@ -15,18 +15,14 @@ enum custom_keycodes {
 #define SH_CWD MT(MOD_LALT, KC_SCLN)
 #define SH_LTAB MT(MOD_LALT, KC_TAB)
 #define SH_RTAB MT(MOD_RALT, KC_TAB)
-#define SH_RABS MT(MOD_RALT, KC_BSPC)
 #define SH_UND MT(MOD_LCTL, KC_UNDS)
 #define SH_BSPC MT(MOD_LCTL, KC_BSPC)
-#define SH_LEAD MT(MOD_LCTL, KC_PLUS)
-#define SH_DEL LALT(LCTL(KC_DEL))
+
+#define TD_S ACTION_TAP_DANCE_DOUBLE(KC_S, KC_SCLN)
+#define TD_A ACTION_TAP_DANCE_DOUBLE(KC_A, KC_COLN)
 
 #define AL_T ALGR_T(KC_T)
 #define AL_I ALGR_T(KC_I)
-#define LA_Y LALT_T(KC_Y)
-#define RA_W RALT_T(KC_W)
-#define LG_E LGUI_T(KC_E)
-#define RG_N RGUI_T(KC_N)
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
 bool sh_key8(keyrecord_t *record, uint8_t sk, uint8_t nk);
@@ -127,11 +123,19 @@ const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 12, HSV_BLUE}
 );
+const rgblight_segment_t PROGMEM shift_state[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 12, HSV_YELLOW}
+);
+const rgblight_segment_t PROGMEM altgr_state[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 12, HSV_GREEN}
+);
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     lower_layer,
-    raise_layer
+    raise_layer,
+    shift_state,
+    altgr_state
 );
 
 void keyboard_post_init_user(void) {
@@ -143,4 +147,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, 2));
     rgblight_set_layer_state(1, layer_state_cmp(state, 3));
     return state;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(2, led_state.shift);
+    rgblight_set_layer_state(3, led_state.altgr);
+    return true;
 }
