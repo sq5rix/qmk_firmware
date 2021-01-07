@@ -25,9 +25,11 @@ enum custom_keycodes {
 // Tap Dance definitions
 enum {
     TD_S,
+    TD_A
 };
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_S] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_COLN),
+    [TD_S] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_SCLN),
+    [TD_A] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_COLN),
 };
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
@@ -38,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BEAKL15] = LAYOUT(
   TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
      SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_V,    KC_LGUI,
-     SH_UND,   KC_Y,    AL_I,    KC_E,    KC_A,    LT_DAT,                             KC_D,    TD(TD_S),AL_T,    KC_N,    KC_W,    KC_BSPC,
+     SH_UND,   KC_Y,    AL_I,    KC_E,    TD(TD_A),LT_DAT,                             KC_D,    TD(TD_S),AL_T,    KC_N,    KC_W,    KC_BSPC,
      KC_LSFT,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    KC_RSFT,
                                         SH_BSPC, LOWER, RAISE,                      SH_ESC,  SH_RTAB,  SH_CWD
   ),
