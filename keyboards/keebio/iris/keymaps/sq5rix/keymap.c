@@ -2,6 +2,7 @@
 #define _BEAKL15 1
 #define _LOWER 2
 #define _RAISE 3
+#define _MOUSE 4
 
 enum custom_keycodes {
    LT_DAT = SAFE_RANGE,
@@ -11,25 +12,25 @@ enum custom_keycodes {
 
 #define LOWER  LT(_LOWER, KC_ENT)
 #define RAISE  LT(_RAISE, KC_SPC)
+#define MOUSE  LT(_MOUSE, KC_A)
 
 #define SH_ESC MT(MOD_LSFT, KC_ESC)
-#define SH_CWD MT(MOD_LALT, KC_SCLN)
+#define SH_CWD MT(MOD_LALT, KC_BSPC)
 #define SH_LTAB MT(MOD_LALT, KC_TAB)
-#define SH_RTAB MT(MOD_RALT, KC_TAB)
 #define SH_UND MT(MOD_LCTL, KC_UNDS)
-#define SH_BSPC MT(MOD_LCTL, KC_BSPC)
+#define SH_Z MT(MOD_LCTL, KC_Z)
 
+#define SH_LGS MT(MOD_LGUI, KC_B)
 #define AL_T ALGR_T(KC_T)
 #define AL_I ALGR_T(KC_I)
 
 // Tap Dance definitions
 enum {
-    TD_S,
-    TD_A
+    TD_S, TD_E
 };
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_S] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_SCLN),
-    [TD_A] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_COLN),
+    [TD_S] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_Z),
+    [TD_E] = ACTION_TAP_DANCE_DOUBLE(KC_E, KC_Q),
 };
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
@@ -39,10 +40,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_BEAKL15] = LAYOUT(
   TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-     SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_V,    KC_LGUI,
-     SH_UND,   KC_Y,    AL_I,    KC_E,    TD(TD_A),LT_DAT,                             KC_D,    TD(TD_S),AL_T,    KC_N,    KC_W,    KC_BSPC,
-     KC_LSFT,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_B,    KC_M,    KC_L,    KC_P,    KC_Z,    KC_RSFT,
-                                        SH_BSPC, LOWER, RAISE,                      SH_ESC,  SH_RTAB,  SH_CWD
+     SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_Z,    KC_LGUI,
+     SH_UND,   KC_Y,    AL_I,    TD(TD_E),MOUSE,   LT_DAT,                             KC_D,    TD(TD_S),AL_T,    KC_N,    KC_B,    KC_SCLN,
+     KC_LSFT,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_W,    KC_M,    KC_L,    KC_P,    KC_V,    KC_RSFT,
+                                       SH_Z, LOWER, RAISE,                      SH_ESC,  KC_BSPC, SH_LTAB
   ),
 
   [_LOWER] = LAYOUT(
@@ -59,6 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______,  KC_SLSH, KC_6,    KC_5,    KC_4,    KC_EQL,                            KC_CIRC, KC_PGUP, KC_UP,   KC_PGDN, _______, RGB_VAI,
      _______,  KC_3,    KC_2,    KC_1,    KC_0,    KC_DOT,                            KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
      _______,  KC_ASTR, KC_9,    KC_8,    KC_7,    KC_PLUS,  _______,        _______, KC_PLUS, KC_HOME, KC_COLN, KC_END,  _______, RGB_MOD,
+                                    _______, _______, _______,                    _______, _______, _______
+  ),
+
+  [_MOUSE] = LAYOUT(
+     _______, _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
+     _______, _______, _______, _______, _______, _______,                             _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
+     _______, _______, _______, KC_BTN1, _______, _______,                             _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+     _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, KC_BTN3, _______, _______, _______,
                                     _______, _______, _______,                    _______, _______, _______
   )
 };
@@ -116,9 +125,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(C(G(KC_RGHT)));
         }
     }
+    // tmux screen
     else if (index == 1) {
         if (clockwise) {
-            send_string(":bn"SS_TAP(X_ENTER));
+            //send_string(":bn"SS_TAP(X_ENTER));
+            send_string(SS_LCTL("B")"p");
         } else {
             send_string(SS_LCTL("B")"n");
         }
@@ -131,17 +142,15 @@ const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 12, HSV_BLUE}
 );
-const rgblight_segment_t PROGMEM shift_state[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 12, HSV_YELLOW}
-);
-const rgblight_segment_t PROGMEM altgr_state[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM mouse_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 12, HSV_GREEN}
 );
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     lower_layer,
-    raise_layer
+    raise_layer,
+    mouse_layer
 );
 
 void keyboard_post_init_user(void) {
@@ -152,6 +161,7 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, 2));
     rgblight_set_layer_state(1, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 4));
     return state;
 }
 
