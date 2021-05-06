@@ -30,7 +30,6 @@ enum {
 };
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_S] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_Z),
-    [TD_E] = ACTION_TAP_DANCE_DOUBLE(KC_E, KC_Q),
 };
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk);
@@ -41,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BEAKL15] = LAYOUT(
   TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
      SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_Z,    KC_LGUI,
-     SH_UND,   KC_Y,    AL_I,    TD(TD_E),MOUSE,   LT_DAT,                             KC_D,    TD(TD_S),AL_T,    KC_N,    KC_B,    KC_SCLN,
+     SH_UND,   KC_Y,    AL_I,    KC_E,    MOUSE,   LT_DAT,                             KC_D,    TD(TD_S),AL_T,    KC_N,    KC_B,    KC_SCLN,
      KC_LSFT,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_W,    KC_M,    KC_L,    KC_P,    KC_V,    KC_RSFT,
                                        SH_Z, LOWER, RAISE,                      SH_ESC,  KC_BSPC, SH_LTAB
   ),
@@ -127,11 +126,21 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     // tmux screen
     else if (index == 1) {
-        if (clockwise) {
-            //send_string(":bn"SS_TAP(X_ENTER));
-            send_string(SS_LCTL("B")"p");
-        } else {
-            send_string(SS_LCTL("B")"n");
+        switch(biton32(layer_state)){
+             case 0:
+                if (clockwise) {
+                    send_string(SS_LCTL("B")"p");
+                } else {
+                    send_string(SS_LCTL("B")"n");
+                }
+                break;
+             case _RAISE:
+                if (clockwise) {
+                    tap_code16(C(G(KC_PGUP)));
+                } else {
+                    tap_code16(C(G(KC_PGDN)));
+                }
+                break;
         }
     }
 }
