@@ -12,11 +12,11 @@ enum custom_keycodes {
 
 #define LOWER  LT(_LOWER, KC_ENT)
 #define RAISE  LT(_RAISE, KC_SPC)
-#define RAISE2 LT(_RAISE, KC_T)
+#define LOWER2 LT(_LOWER, KC_T)
+#define RAISE2 LT(_RAISE, KC_BSPC)
 #define MOUSE  LT(_MOUSE, KC_A)
 
 #define SH_ESC MT(MOD_LSFT, KC_ESC)
-#define SH_CWD MT(MOD_LALT, KC_BSPC)
 #define SH_LTAB MT(MOD_LALT, KC_TAB)
 #define SH_UND MT(MOD_LCTL, KC_UNDS)
 #define SH_Z MT(MOD_LCTL, KC_Z)
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BEAKL15] = LAYOUT(
   TG(_RAISE),  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
      SH_LTAB,  KC_Q,    KC_H,    KC_O,    KC_U,    KC_X,                               KC_G,    KC_C,    KC_R,    KC_F,    KC_Z,    KC_LGUI,
-     SH_UND,   KC_Y,    AL_I,    KC_E,    MOUSE,   LT_DAT,                             KC_D,    TD(TD_S),RAISE2,  AL_N,    KC_B,    KC_SCLN,
+     SH_UND,   KC_Y,    AL_I,    KC_E,    MOUSE,   LT_DAT,                             KC_D,    TD(TD_S),LOWER2,  AL_N,    KC_B,    KC_SCLN,
      KC_LSFT,  KC_J,    KC_SLSH, LT_COM,  KC_K,    LT_QUOT, RGB_TOG,          BL_TOGG, KC_W,    KC_M,    KC_L,    KC_P,    KC_V,    KC_RSFT,
-                                       SH_Z, LOWER, RAISE,                      SH_ESC,  KC_BSPC, SH_LTAB
+                                       SH_Z, LOWER, RAISE,                      SH_ESC,  RAISE2, SH_LTAB
   ),
 
   [_LOWER] = LAYOUT(
